@@ -9,6 +9,7 @@ var gulp = require('gulp'),
     autoprefixer = require('autoprefixer'),
     cssnano = require('cssnano'),
     sourcemaps = require('gulp-sourcemaps'),
+    imagemin = require('gulp-imagemin'),
     browserSync = require('browser-sync').create();
 
 // Creates standard paths for asset locations.
@@ -24,6 +25,10 @@ var paths = {
   html: {
     src: 'app/src/*.html',
     dest: 'app/dist'
+  },
+  img: {
+    src: 'app/src/img/*{.png,.jpg,.svg}',
+    dest: 'app/dist/img'
   }
 };
 
@@ -57,6 +62,15 @@ function html() {
     .pipe(browserSync.stream());
 }
 
+// Processes images
+function images() {
+  return gulp
+    .src(paths.img.src)
+    .pipe(imagemin())
+    .pipe(gulp.dest(paths.img.dest))
+    .pipe(browserSync.stream());
+}
+
 // Creates a watch task and reloads page with browserSync.
 function watch() {
   browserSync.init({
@@ -69,15 +83,19 @@ function watch() {
   gulp.watch(paths.css.src, styles);
   gulp.watch(paths.js.src, scripts);
   gulp.watch(paths.html.src, html).on('change', browserSync.reload);
+  gulp.watch(paths.img.src, images);
 }
 
+
 // Exports tasks so they can be ran from CLI.
-exports.watch = watch
+exports.watch = watch;
 exports.css = styles;
 exports.scripts = scripts;
 
 // Sets tasks to run in parallel.
-var build = gulp.parallel(styles, scripts, html, watch);
+var build = gulp.parallel(styles, scripts, html, images, watch);
 
 // Creates default task.
 gulp.task('default', build);
+
+gulp.task('compress', images);

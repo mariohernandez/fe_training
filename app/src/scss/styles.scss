@@ -1,3 +1,130 @@
-body {
-  background-color: rebeccapurple;
+// Imports global styles.
+@import './global';
+
+.card {
+  background-color: $color-gray-light;
+  margin: 10px auto;
+  max-width: 640px;
+}
+
+.card__wide {
+  display: flex;
+  max-width: 1040px;
+
+  // When card is wide, image and content
+  // are 50% wide each.
+  .card__image,
+  .card__content {
+    width: 50%;
+  }
+
+  .card__content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  // Using flex-grow above, and margi-top auto below,
+  // allows for footer to stick to bottom of card.
+  .card__footer {
+    margin-top: auto;
+  }
+}
+
+// Text content wrapper.
+.card__content {
+  max-height: 75px;
+  transition: max-height 0.5s ease-in-out;
+  overflow: hidden;
+  position: relative;
+
+  .is-expanded & {
+    max-height: 650px;
+  }
+
+  .card__wide & {
+    max-height: 650px;
+  }
+}
+
+.card__header {
+  margin: 20px;
+  position: relative;
+  width: calc(100% - 20px);
+
+  // Arrow icon next to title.
+  .chevron-icon {
+    display: block;
+    height: 24px;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    transition: transform 0.3s ease-in-out;
+    width: 30px;
+
+    // If the card is expanded, rotate the chevron.
+    .is-expanded & {
+      transform: rotate(-180deg);
+    }
+
+    // On wide card, hide arrow button.
+    .card__wide & {
+      display: none;
+    }
+  }
+}
+
+.card__title {
+  width: 100%;
+
+  // Remove title margin on card wide.
+  .card__wide & {
+    margin: 0;
+  }
+
+  // Resets all button styles.
+  button {
+    all: inherit;
+
+    // Add focus styles.
+    &:focus {
+      outline: rgb(59, 153, 252) auto 5px;
+    }
+  }
+}
+
+.card__body {
+  padding: 0 20px 20px;
+}
+
+.card__footer {
+  background-color: $color-black;
+  color: $color-white;
+  padding: 10px 20px 10px 0;
+}
+
+.card__social {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card__social--items {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.card__social--item {
+  margin: 0 10px;
+}
+
+.icon__wrapper {
+
+  .icon {
+    fill: $color-white;
+    height: 30px;
+    width: 30px;
+  }
 }

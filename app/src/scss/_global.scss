@@ -1,0 +1,45 @@
+// Variables.
+// Colors
+$color-black: #000;
+$color-white: #fff;
+$color-gray-light: #efefef;
+$color-links: rebeccapurple;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.8rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+a {
+  color: $color-links;
+  text-decoration: underline;
+}
+
+// Visually hides elements while still
+// making them available to screen readers.
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
